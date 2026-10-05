@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SenceLink Technician - Download</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(75, 170, 255, 0.45),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(0, 100, 255, 0.35),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    135deg,
+                    #064fd4 0%,
+                    #0875ed 48%,
+                    #20a4f5 100%
+                );
+        }
+
+        /* ==============================
+           MAIN CARD
+        ============================== */
+
+        .download-card {
+            width: 100%;
+            max-width: 440px;
+
+            background: rgba(255, 255, 255, 0.98);
+
+            border-radius: 28px;
+
+            padding: 38px 28px 30px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.22);
+
+            animation: cardAppear 0.5s ease;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==============================
+           LOGO
+        ============================== */
+
+        .logo-box {
+            width: 100px;
+            height: 100px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+        }
+
+        /* ==============================
+           TITLE
+        ============================== */
+
+        .title {
+            margin: 0;
+
+            color: #102a5a;
+
+            font-size: 28px;
+
+            font-weight: 700;
+        }
+
+        .subtitle {
+            margin-top: 10px;
+            margin-bottom: 28px;
+
+            color: #68778c;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+        /* ==============================
+           DOWNLOAD BUTTON
+        ============================== */
+
+        .download-button {
+            width: 100%;
+
+            border: none;
+
+            border-radius: 16px;
+
+            padding: 17px 20px;
+
+            background: #1268e8;
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .download-button:hover {
+            background: #0b58ca;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 20px rgba(18, 104, 232, 0.25);
+        }
+
+        .download-button:active {
+            transform: translateY(0);
+        }
+
+        .download-button:disabled {
+            cursor: not-allowed;
+
+            opacity: 0.75;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+        /* ==============================
+           STATUS
+        ============================== */
+
+        .status {
+            min-height: 24px;
+
+            margin-top: 20px;
+
+            color: #102a5a;
+
+            font-size: 15px;
+
+            font-weight: 700;
+        }
+
+        /* ==============================
+           PROGRESS
+        ============================== */
+
+        .progress-container {
+            display: none;
+
+            margin-top: 15px;
+        }
+
+        .progress-background {
+            width: 100%;
+
+            height: 10px;
+
+            overflow: hidden;
+
+            border-radius: 50px;
+
+            background: #e7edf5;
+        }
+
+        .progress-bar {
+            width: 0%;
+
+            height: 100%;
+
+            border-radius: 50px;
+
+            background: linear-gradient(
+                90deg,
+                #1268e8,
+                #27a5ff
+            );
+
+            transition: width 0.12s linear;
+        }
+
+        .progress-percent {
+            margin-top: 8px;
+
+            color: #66758a;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+        /* ==============================
+           SUCCESS
+        ============================== */
+
+        .success {
+            color: #159447;
+        }
+
+        /* ==============================
+           ERROR
+        ============================== */
+
+        .error {
+            color: #d93025;
+        }
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        .footer {
+            margin-top: 25px;
+
+            padding-top: 18px;
+
+            border-top: 1px solid #edf1f6;
+
+            color: #7b8798;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 16px;
+            }
+
+            .download-card {
+                padding: 32px 22px 26px;
+
+                border-radius: 24px;
+            }
+
+            .logo-box {
+                width: 88px;
+                height: 88px;
+            }
+
+            .title {
+                font-size: 25px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .download-button {
+                font-size: 17px;
+
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="download-card">
+
+    <!-- =========================================
+         APP LOGO
+         =========================================
+         اگر logo لگانا ہو تو اسی نام سے رکھیں:
+         sencelink_logo.png
+    -->
+
+    <div class="logo-box">
+        <img
+            src="sencelink_logo.png"
+            alt="SenceLink Technician"
+            onerror="this.style.display='none'"
+        >
+    </div>
+
+
+    <!-- =========================================
+         TITLE
+         =========================================
+    -->
+
+    <h1 class="title">
+        SenceLink Technician
+    </h1>
+
+
+    <p class="subtitle">
+        Download the official SenceLink Technician app
+        and start managing your rewards.
+    </p>
+
+
+    <!-- =========================================
+         DOWNLOAD BUTTON
+         =========================================
+    -->
+
+    <button
+        id="downloadButton"
+        class="download-button"
+    >
+        Download App
+    </button>
+
+
+    <!-- =========================================
+         STATUS
+         =========================================
+    -->
+
+    <div
+        id="status"
+        class="status"
+    ></div>
+
+
+    <!-- =========================================
+         PROGRESS BAR
+         =========================================
+    -->
+
+    <div
+        id="progressContainer"
+        class="progress-container"
+    >
+
+        <div class="progress-background">
+
+            <div
+                id="progressBar"
+                class="progress-bar"
+            ></div>
+
+        </div>
+
+
+        <div
+            id="progressPercent"
+            class="progress-percent"
+        >
+            0%
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         FOOTER
+         =========================================
+    -->
+
+    <div class="footer">
+
+        Official SenceLink Technician Application<br>
+
+        Android APK Download
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+    ==================================================
+    APK FILE NAME
+    ==================================================
+    IMPORTANT:
+
+    GitHub repository میں APK کا نام بالکل یہی ہونا چاہیے:
+
+    SenceLink-Technician.apk
+    */
+
+    const APK_URL = "./SenceLink-Technician.apk";
+
+
+    const downloadButton =
+        document.getElementById("downloadButton");
+
+    const status =
+        document.getElementById("status");
+
+    const progressContainer =
+        document.getElementById("progressContainer");
+
+    const progressBar =
+        document.getElementById("progressBar");
+
+    const progressPercent =
+        document.getElementById("progressPercent");
+
+
+    /*
+    ==================================================
+    DOWNLOAD FUNCTION
+    ==================================================
+    */
+
+    downloadButton.addEventListener(
+        "click",
+        async function () {
+
+            downloadButton.disabled = true;
+
+            downloadButton.textContent =
+                "Preparing Download...";
+
+            status.className = "status";
+
+            status.textContent =
+                "Downloading app...";
+
+            progressContainer.style.display =
+                "block";
+
+            progressBar.style.width =
+                "0%";
+
+            progressPercent.textContent =
+                "0%";
+
+
+            try {
+
+                /*
+                ------------------------------------------
+                Get APK
+                ------------------------------------------
+                */
+
+                const response =
+                    await fetch(
+                        APK_URL,
+                        {
+                            cache: "no-store"
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "APK file not found"
+                    );
+
+                }
+
+
+                /*
+                ------------------------------------------
+                Total APK size
+                ------------------------------------------
+                */
+
+                const contentLength =
+                    response.headers.get(
+                        "Content-Length"
+                    );
+
+                const total =
+                    Number(contentLength) || 0;
+
+
+                /*
+                ------------------------------------------
+                Read APK in chunks
+                ------------------------------------------
+                */
+
+                const reader =
+                    response.body.getReader();
+
+
+                const chunks = [];
+
+                let received = 0;
+
+
+                while (true) {
+
+                    const result =
+                        await reader.read();
+
+
+                    if (result.done) {
+
+                        break;
+
+                    }
+
+
+                    const chunk =
+                        result.value;
+
+
+                    chunks.push(chunk);
+
+                    received += chunk.length;
+
+
+                    /*
+                    --------------------------------------
+                    Update progress
+                    --------------------------------------
+                    */
+
+                    if (total > 0) {
+
+                        const percent =
+                            Math.min(
+                                100,
+                                Math.round(
+                                    (received / total) * 100
+                                )
+                            );
+
+
+                        progressBar.style.width =
+                            percent + "%";
+
+
+                        progressPercent.textContent =
+                            percent + "%";
+
+                    } else {
+
+                        progressPercent.textContent =
+                            "Downloading...";
+
+                    }
+
+                }
+
+
+                /*
+                ------------------------------------------
+                Create APK file
+                ------------------------------------------
+                */
+
+                const apkBlob =
+                    new Blob(
+                        chunks,
+                        {
+                            type:
+                                "application/vnd.android.package-archive"
+                        }
+                    );
+
+
+                const downloadUrl =
+                    URL.createObjectURL(
+                        apkBlob
+                    );
+
+
+                /*
+                ------------------------------------------
+                Start APK download
+                ------------------------------------------
+                */
+
+                const link =
+                    document.createElement("a");
+
+
+                link.href =
+                    downloadUrl;
+
+
+                link.download =
+                    "SenceLink-Technician.apk";
+
+
+                document.body.appendChild(link);
+
+
+                link.click();
+
+
+                link.remove();
+
+
+                URL.revokeObjectURL(
+                    downloadUrl
+                );
+
+
+                /*
+                ------------------------------------------
+                Completed
+                ------------------------------------------
+                */
+
+                progressBar.style.width =
+                    "100%";
+
+
+                progressPercent.textContent =
+                    "100%";
+
+
+                status.className =
+                    "status success";
+
+
+                status.textContent =
+                    "Download Complete ✓";
+
+
+                downloadButton.disabled =
+                    false;
+
+
+                downloadButton.textContent =
+                    "Download Again";
+
+            }
+
+
+            catch (error) {
+
+                console.error(error);
+
+
+                progressContainer.style.display =
+                    "none";
+
+
+                status.className =
+                    "status error";
+
+
+                status.textContent =
+                    "Download failed. Please try again.";
+
+
+                downloadButton.disabled =
+                    false;
+
+
+                downloadButton.textContent =
+                    "Try Again";
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
