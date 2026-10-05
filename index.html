@@ -45,10 +45,6 @@
                 );
         }
 
-        /* ==============================
-           MAIN CARD
-        ============================== */
-
         .download-card {
             width: 100%;
             max-width: 440px;
@@ -79,10 +75,6 @@
             }
         }
 
-        /* ==============================
-           LOGO
-        ============================== */
-
         .logo-box {
             width: 100px;
             height: 100px;
@@ -100,10 +92,6 @@
 
             object-fit: contain;
         }
-
-        /* ==============================
-           TITLE
-        ============================== */
 
         .title {
             margin: 0;
@@ -125,10 +113,6 @@
 
             line-height: 1.6;
         }
-
-        /* ==============================
-           DOWNLOAD BUTTON
-        ============================== */
 
         .download-button {
             width: 100%;
@@ -178,10 +162,6 @@
             box-shadow: none;
         }
 
-        /* ==============================
-           STATUS
-        ============================== */
-
         .status {
             min-height: 24px;
 
@@ -193,10 +173,6 @@
 
             font-weight: 700;
         }
-
-        /* ==============================
-           PROGRESS
-        ============================== */
 
         .progress-container {
             display: none;
@@ -242,25 +218,13 @@
             font-weight: 600;
         }
 
-        /* ==============================
-           SUCCESS
-        ============================== */
-
         .success {
             color: #159447;
         }
 
-        /* ==============================
-           ERROR
-        ============================== */
-
         .error {
             color: #d93025;
         }
-
-        /* ==============================
-           FOOTER
-        ============================== */
 
         .footer {
             margin-top: 25px;
@@ -275,10 +239,6 @@
 
             line-height: 1.6;
         }
-
-        /* ==============================
-           MOBILE
-        ============================== */
 
         @media (max-width: 480px) {
 
@@ -318,26 +278,20 @@
 
 <div class="download-card">
 
-    <!-- =========================================
-         APP LOGO
-         =========================================
-         اگر logo لگانا ہو تو اسی نام سے رکھیں:
-         sencelink_logo.png
-    -->
+    <!-- APP LOGO -->
 
     <div class="logo-box">
+
         <img
             src="sencelink_logo.png"
             alt="SenceLink Technician"
             onerror="this.style.display='none'"
         >
+
     </div>
 
 
-    <!-- =========================================
-         TITLE
-         =========================================
-    -->
+    <!-- TITLE -->
 
     <h1 class="title">
         SenceLink Technician
@@ -350,10 +304,7 @@
     </p>
 
 
-    <!-- =========================================
-         DOWNLOAD BUTTON
-         =========================================
-    -->
+    <!-- DOWNLOAD BUTTON -->
 
     <button
         id="downloadButton"
@@ -363,10 +314,7 @@
     </button>
 
 
-    <!-- =========================================
-         STATUS
-         =========================================
-    -->
+    <!-- STATUS -->
 
     <div
         id="status"
@@ -374,10 +322,7 @@
     ></div>
 
 
-    <!-- =========================================
-         PROGRESS BAR
-         =========================================
-    -->
+    <!-- PROGRESS -->
 
     <div
         id="progressContainer"
@@ -393,7 +338,6 @@
 
         </div>
 
-
         <div
             id="progressPercent"
             class="progress-percent"
@@ -404,10 +348,7 @@
     </div>
 
 
-    <!-- =========================================
-         FOOTER
-         =========================================
-    -->
+    <!-- FOOTER -->
 
     <div class="footer">
 
@@ -424,16 +365,12 @@
 
     /*
     ==================================================
-    APK FILE NAME
+    OFFICIAL APK DOWNLOAD LINK
     ==================================================
-    IMPORTANT:
-
-    GitHub repository میں APK کا نام بالکل یہی ہونا چاہیے:
-
-    SenceLink-Technician.apk
     */
 
-    const APK_URL = "./SenceLink-Technician.apk";
+    const APK_URL =
+        "https://github.com/u6969001-pixel/SenceLink-Technician/releases/download/v1.0.0/SenceLink-Technician.apk";
 
 
     const downloadButton =
@@ -454,7 +391,7 @@
 
     /*
     ==================================================
-    DOWNLOAD FUNCTION
+    DOWNLOAD
     ==================================================
     */
 
@@ -467,10 +404,11 @@
             downloadButton.textContent =
                 "Preparing Download...";
 
-            status.className = "status";
+            status.className =
+                "status";
 
             status.textContent =
-                "Downloading app...";
+                "Connecting to SenceLink server...";
 
             progressContainer.style.display =
                 "block";
@@ -486,7 +424,7 @@
 
                 /*
                 ------------------------------------------
-                Get APK
+                CONNECT TO APK
                 ------------------------------------------
                 */
 
@@ -494,6 +432,7 @@
                     await fetch(
                         APK_URL,
                         {
+                            method: "GET",
                             cache: "no-store"
                         }
                     );
@@ -502,7 +441,7 @@
                 if (!response.ok) {
 
                     throw new Error(
-                        "APK file not found"
+                        "APK download failed"
                     );
 
                 }
@@ -510,7 +449,7 @@
 
                 /*
                 ------------------------------------------
-                Total APK size
+                TOTAL FILE SIZE
                 ------------------------------------------
                 */
 
@@ -525,9 +464,18 @@
 
                 /*
                 ------------------------------------------
-                Read APK in chunks
+                READ DOWNLOAD STREAM
                 ------------------------------------------
                 */
+
+                if (!response.body) {
+
+                    throw new Error(
+                        "Download stream unavailable"
+                    );
+
+                }
+
 
                 const reader =
                     response.body.getReader();
@@ -537,6 +485,12 @@
 
                 let received = 0;
 
+
+                /*
+                ------------------------------------------
+                DOWNLOAD LOOP
+                ------------------------------------------
+                */
 
                 while (true) {
 
@@ -562,7 +516,7 @@
 
                     /*
                     --------------------------------------
-                    Update progress
+                    PROGRESS
                     --------------------------------------
                     */
 
@@ -584,10 +538,16 @@
                         progressPercent.textContent =
                             percent + "%";
 
+
+                        status.textContent =
+                            "Downloading app... " +
+                            percent +
+                            "%";
+
                     } else {
 
-                        progressPercent.textContent =
-                            "Downloading...";
+                        status.textContent =
+                            "Downloading app...";
 
                     }
 
@@ -596,7 +556,7 @@
 
                 /*
                 ------------------------------------------
-                Create APK file
+                CREATE APK
                 ------------------------------------------
                 */
 
@@ -618,7 +578,7 @@
 
                 /*
                 ------------------------------------------
-                Start APK download
+                START FILE DOWNLOAD
                 ------------------------------------------
                 */
 
@@ -634,29 +594,27 @@
                     "SenceLink-Technician.apk";
 
 
+                link.style.display =
+                    "none";
+
+
                 document.body.appendChild(link);
 
 
                 link.click();
 
 
-                link.remove();
-
-
-                URL.revokeObjectURL(
-                    downloadUrl
-                );
+                document.body.removeChild(link);
 
 
                 /*
                 ------------------------------------------
-                Completed
+                COMPLETE
                 ------------------------------------------
                 */
 
                 progressBar.style.width =
                     "100%";
-
 
                 progressPercent.textContent =
                     "100%";
@@ -677,12 +635,33 @@
                 downloadButton.textContent =
                     "Download Again";
 
+
+                /*
+                ------------------------------------------
+                CLEAN MEMORY
+                ------------------------------------------
+                */
+
+                setTimeout(
+                    function () {
+
+                        URL.revokeObjectURL(
+                            downloadUrl
+                        );
+
+                    },
+                    5000
+                );
+
             }
 
 
             catch (error) {
 
-                console.error(error);
+                console.error(
+                    "APK Download Error:",
+                    error
+                );
 
 
                 progressContainer.style.display =
